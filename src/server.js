@@ -14,12 +14,6 @@ connectDB();
 
 const app = express();
 
-// Body parsing middlewares
-app.use(express.json()); // Node.js and express servers don't know how to naturally handle json by defauly, so we need this.
-app.use(express.urlencoded({ extended: true })); // Not fully required, this is used to parse data from an HTML form submission.
-
-app.use(cookieParser());
-
 // Cors
 app.use(
   cors({
@@ -31,6 +25,12 @@ app.use(
     credentials: true,
   }),
 );
+
+// Body parsing middlewares
+app.use(express.json()); // Node.js and express servers don't know how to naturally handle json by defauly, so we need this.
+app.use(express.urlencoded({ extended: true })); // Not fully required, this is used to parse data from an HTML form submission.
+
+app.use(cookieParser());
 
 // API Routes
 app.use("/auth", authRoutes);
