@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "Game" ALTER COLUMN "image" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Pair" ALTER COLUMN "leftImage" DROP NOT NULL,
+ALTER COLUMN "rightImage" DROP NOT NULL;
