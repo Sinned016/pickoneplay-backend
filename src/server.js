@@ -23,7 +23,11 @@ app.use(cookieParser());
 // Cors
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://pickoneplay.online"],
+    origin: [
+      "http://localhost:3000",
+      "https://pickoneplay.online",
+      "https://www.pickoneplay.online",
+    ],
     credentials: true,
   }),
 );
