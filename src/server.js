@@ -21,6 +21,7 @@ app.use(
       "http://localhost:3000",
       "https://pickoneplay.online",
       "https://www.pickoneplay.online",
+      "https://pickoneplay-frontend-git-main-dennis-projects-4684ea3f.vercel.app",
     ],
     credentials: true,
   }),
