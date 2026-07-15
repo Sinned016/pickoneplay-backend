@@ -6,6 +6,8 @@ import { prisma } from "../config/db.js";
 // We get the token from the headers, so make sure to take use the token in our cookies on the frontend in the header.
 export const authMiddleware = async (req, res, next) => {
   console.log("Auth middleware reached");
+  console.log("Cookies:", req.cookies);
+  console.log("Raw cookie:", req.headers.cookie);
 
   let token;
 
