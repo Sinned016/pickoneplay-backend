@@ -95,7 +95,8 @@ const logout = (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
     secure: isProd,
-    sameSite: isProd ? "none" : "lax",
+    sameSite: "lax",
+    domain: isProd ? ".pickoneplay.online" : undefined,
     expires: new Date(0),
   });
 
@@ -111,7 +112,8 @@ const Me = async (req, res) => {
   const cookieOptions = {
     httpOnly: true,
     secure: isProd,
-    sameSite: isProd ? "none" : "lax",
+    sameSite: "lax",
+    domain: isProd ? ".pickoneplay.online" : undefined,
   };
 
   try {
