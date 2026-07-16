@@ -72,6 +72,7 @@ const login = async (req, res) => {
   }
 
   // Generate JWT token
+  // Im not using the token here anymore, i just set it in the function.
   const token = generateToken(user.id, res);
 
   res.status(201).json({
@@ -81,16 +82,20 @@ const login = async (req, res) => {
         id: user.id,
         email: email,
       },
-      token,
     },
   });
 };
 
-// Since im using next.js api as a proxy I cant delete the jwt token here. I will do it in the next.js API routes.
 const logout = (req, res) => {
-  // Setting the cookie to nothing
+  const isProd = process.env.NODE_ENV === "production";
+
+  // Clearing a cookie requires the same attributes it was set with
+  // (secure/sameSite), otherwise the browser treats it as a different
+  // cookie and the original jwt cookie is left in place.
   res.cookie("jwt", "", {
     httpOnly: true,
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
     expires: new Date(0),
   });
 
@@ -102,6 +107,13 @@ const logout = (req, res) => {
 
 // We do not wanna use our authMiddleware for this, since we wanna set "user: null" if there is none here.
 const Me = async (req, res) => {
+  const isProd = process.env.NODE_ENV === "production";
+  const cookieOptions = {
+    httpOnly: true,
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
+  };
+
   try {
     const token = req.cookies?.jwt;
 
@@ -125,18 +137,18 @@ const Me = async (req, res) => {
 
     // Token valid but user missing (deleted account etc.)
     if (!user) {
-      res.clearCookie("jwt");
+      res.clearCookie("jwt", cookieOptions);
       return res.status(200).json({ user: null });
     }
 
     return res.status(200).json({ user });
   } catch (err) {
     // Invalid/expired token = treat as guest
-    res.clearCookie("jwt");
+    res.clearCookie("jwt", cookieOptions);
     return res
       .status(200)
       .json({ user: null, message: "Something went wrong, proceed as guest" });
   }
 };
 
-export { register, login, Me };
+export { register, login, logout, Me };
