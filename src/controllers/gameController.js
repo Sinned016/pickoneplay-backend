@@ -33,7 +33,7 @@ const createGame = async (req, res) => {
     if (!Array.isArray(parsedPairs) || parsedPairs.length < 3) {
       return res.status(400).json({
         status: "error",
-        message: "You must provide atleast 4 pairs",
+        message: "You must provide atleast 3 pairs",
       });
     }
 

@@ -8,6 +8,7 @@ import { disconnectDB } from "./config/db.js";
 // Import Routes
 import authRoutes from "./routes/authRoutes.js";
 import gameRoutes from "./routes/gameRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
 
 config();
 connectDB();
@@ -36,6 +37,7 @@ app.use(cookieParser());
 // API Routes
 app.use("/auth", authRoutes);
 app.use("/game", gameRoutes);
+app.use("/profile", profileRoutes);
 
 app.get("/hello", (req, res) => {
   res.json({ message: "Hello World" });
