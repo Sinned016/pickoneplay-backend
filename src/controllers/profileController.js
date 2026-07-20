@@ -1,3 +1,8 @@
+import { prisma } from "../config/db.js";
+import bcrypt from "bcryptjs";
+import { compressImage } from "../utils/compressImage.js";
+import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
+
 const updateUserInfo = async (req, res) => {
   try {
     // User info
